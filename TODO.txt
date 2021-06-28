@@ -1,0 +1,3 @@
+- insert a rect (16 x 16)
+- move that rect on it's own
+- use one press left to change direction once
