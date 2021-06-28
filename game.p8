@@ -3,15 +3,32 @@ version 32
 __lua__
 
 function _init()
+  galaxy = {
+    x = 0,
+    y = 0
+  }
 
+  player = {
+    sprite = 0,
+    x = galaxy.x - 4,
+    y = galaxy.y - 4,
+  }
 end
 
 function _update()
+  if btn(0) then player.x -= 1 end
+  if btn(1) then player.x += 1 end
+  if btn(2) then player.y -= 1 end
+  if btn(3) then player.y += 1 end
 
+  camera(player.x - 59,player.y - 59)
 end
 
 function _draw()
-
+  cls()
+  spr(player.sprite, player.x, player.y)
+  rect(galaxy.x - 63,galaxy.y - 63,127 - 63,127 - 63,7) --border
+  pset(galaxy.x,galaxy.y,8) --center of galaxy
 end
 
 __gfx__
