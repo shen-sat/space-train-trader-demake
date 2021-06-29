@@ -1,3 +1,16 @@
-- insert a rect (16 x 16)
-- move that rect on it's own
-- use one press left to change direction once
+train and movement
+- speed variable
+
+epics:
+- fuel counter
+- map with borders
+- collect and link fuel carts
+- collect and link gold carts
+- sell carts at planet
+- randomly spawn carts and planets, with player in center
+- win condition
+- lose condition
+- intro
+
+done:
+- move player with right/left arrows

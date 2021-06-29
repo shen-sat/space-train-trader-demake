@@ -12,20 +12,57 @@ function _init()
     sprite = 0,
     x = galaxy.x - 4,
     y = galaxy.y - 4,
+    speed = 1,
+    compass = {0,1,2,3},
+    direction = 0,
+    update = function(self)
+      self:turn()
+      self:move()
+    end,
+    turn = function(self)
+      local rotation
+      if self.direction == 0 then
+        if btnp(1) then rotation = 1
+        elseif btnp(0) then rotation = -1 end
+      elseif self.direction == 1 then
+        if btnp(3) then rotation = 1
+        elseif btnp(2) then rotation = -1 end
+      elseif self.direction == 2 then
+        if btnp(0) then rotation = 1
+        elseif btnp(1) then rotation = -1 end
+      else
+        if btnp(2) then rotation = 1
+        elseif btnp(3) then rotation = -1 end
+      end
+      self:set_direction(rotation)
+    end,
+    set_direction = function(self,rotation)
+      if rotation == nil then return end
+
+      local new_index = ((self.direction + rotation) % 4) + 1
+      self.direction = self.compass[new_index]
+    end,
+    move = function(self)
+      local movements = {
+        [0] = function() self.y -= 1 end,
+        [1] = function() self.x += 1 end,
+        [2] = function() self.y += 1 end,
+        [3] = function() self.x -= 1 end  
+      }
+      movements[self.direction]()
+    end
   }
 end
 
 function _update()
-  if btn(0) then player.x -= 1 end
-  if btn(1) then player.x += 1 end
-  if btn(2) then player.y -= 1 end
-  if btn(3) then player.y += 1 end
+  player:update()
 
   camera(player.x - 59,player.y - 59)
 end
 
 function _draw()
   cls()
+  print(player.direction, player.x, player.y + 10, 7)
   spr(player.sprite, player.x, player.y)
   rect(galaxy.x - 63,galaxy.y - 63,127 - 63,127 - 63,7) --border
   pset(galaxy.x,galaxy.y,8) --center of galaxy
