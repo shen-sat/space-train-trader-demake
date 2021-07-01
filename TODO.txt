@@ -1,10 +1,13 @@
-Fuel counter
-- attribute, starts at 500
-- goes down according to update function (burn_fuel)
-- if fuel == 0 then engine stop
+collect fuel carts
+- instantiate cart object
+	- x
+	- y
+	- type
+- add carts attribute to engine
+- add collision - if collide add cart to engine carts
 
 epics:
-- collect and link fuel carts
+- link fuel carts
 - collect and link gold carts
 - sell carts at planet
 - change engine speed with fuel carts
@@ -17,3 +20,4 @@ epics:
 done:
 - move player with right/left arrows
 - speed variable
+- fuel counter

@@ -16,7 +16,9 @@ function _init()
     compass = {0,1,2,3},
     direction = 0,
     speed = 1,
+    fuel = 100,
     update = function(self)
+      self:burn_fuel()
       self:turn()
       self:move()
     end,
@@ -44,6 +46,8 @@ function _init()
       self.direction = self.compass[new_index]
     end,
     move = function(self)
+      if self.fuel <= 0 then return end
+
       local movements = {
         [0] = function() self.y -= self.speed end,
         [1] = function() self.x += self.speed end,
@@ -51,6 +55,9 @@ function _init()
         [3] = function() self.x -= self.speed end  
       }
       movements[self.direction]()
+    end,
+    burn_fuel = function(self)
+      self.fuel -= 1
     end
   }
 end
@@ -63,7 +70,7 @@ end
 
 function _draw()
   cls()
-  print(player.direction, player.x, player.y + 10, 7)
+  print(player.fuel, player.x, player.y + 10, 7)
   spr(player.sprite, player.x, player.y)
   rect(galaxy.x - 63,galaxy.y - 63,127 - 63,127 - 63,7) --border
   pset(galaxy.x,galaxy.y,8) --center of galaxy
