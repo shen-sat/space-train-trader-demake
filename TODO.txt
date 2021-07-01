@@ -1,12 +1,14 @@
-train and movement
-- speed variable
+Fuel counter
+- attribute, starts at 500
+- goes down according to update function (burn_fuel)
+- if fuel == 0 then engine stop
 
 epics:
-- fuel counter
-- map with borders
 - collect and link fuel carts
 - collect and link gold carts
 - sell carts at planet
+- change engine speed with fuel carts
+- map with borders
 - randomly spawn carts and planets, with player in center
 - win condition
 - lose condition
@@ -14,3 +16,4 @@ epics:
 
 done:
 - move player with right/left arrows
+- speed variable

@@ -15,6 +15,7 @@ function _init()
     speed = 1,
     compass = {0,1,2,3},
     direction = 0,
+    speed = 1,
     update = function(self)
       self:turn()
       self:move()
@@ -44,10 +45,10 @@ function _init()
     end,
     move = function(self)
       local movements = {
-        [0] = function() self.y -= 1 end,
-        [1] = function() self.x += 1 end,
-        [2] = function() self.y += 1 end,
-        [3] = function() self.x -= 1 end  
+        [0] = function() self.y -= self.speed end,
+        [1] = function() self.x += self.speed end,
+        [2] = function() self.y += self.speed end,
+        [3] = function() self.x -= self.speed end  
       }
       movements[self.direction]()
     end
