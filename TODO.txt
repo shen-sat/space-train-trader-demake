@@ -1,16 +1,9 @@
-collect fuel carts
-- instantiate cart object
-	- x
-	- y
-	- type
-- add carts attribute to engine
-- add collision - if collide add cart to engine carts
+- change engine speed with fuel carts
+	- when a cart is collected reduce speed by an amount
 
 epics:
-- link fuel carts
 - collect and link gold carts
 - sell carts at planet
-- change engine speed with fuel carts
 - map with borders
 - randomly spawn carts and planets, with player in center
 - win condition
@@ -21,3 +14,8 @@ done:
 - move player with right/left arrows
 - speed variable
 - fuel counter
+- instantiate cart object
+- add carts attribute to engine
+- add collision - if collide add cart to engine carts
+- collect carts
+- move collected carts
