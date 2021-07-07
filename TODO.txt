@@ -1,8 +1,15 @@
-- brake for engine
+- sell carts at planet
+	- import planet sprite
+	- instatiate planet
+	- add credits attribute to player
+	- add value attribute to cart
+	- use point in rect to determine if engine or any connected carts are in range
+	- press x to sell carts
+		- add cart value to credits score
+		- remove cart from player.carts
 
 epics:
-- collect and link gold carts
-- sell carts at planet
+- make carts move next to each other and engine, regardless of speed
 - map with borders
 - randomly spawn carts and planets, with player in center
 - win condition
@@ -22,3 +29,4 @@ done:
 - collect carts
 - move collected carts
 - change engine speed with fuel carts
+- brake for engine

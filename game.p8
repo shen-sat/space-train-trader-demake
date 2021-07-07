@@ -69,13 +69,15 @@ function _init()
     move = function(self)
       if self.fuel <= 0 then return end
       
-      local speed = self.speed - flr(self:weight()/2)
+      local distance = self.speed - flr(self:weight()/2)
+
+      if btn(4) then distance = 1 end
 
       local movements = {
-        [0] = function() self.y -= speed end,
-        [1] = function() self.x += speed end,
-        [2] = function() self.y += speed end,
-        [3] = function() self.x -= speed end  
+        [0] = function() self.y -= distance end,
+        [1] = function() self.x += distance end,
+        [2] = function() self.y += distance end,
+        [3] = function() self.x -= distance end  
       }
       movements[self.direction]()
     end,
