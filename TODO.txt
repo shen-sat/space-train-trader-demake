@@ -1,5 +1,4 @@
-- change engine speed with fuel carts
-	- when a cart is collected reduce speed by an amount
+- brake for engine
 
 epics:
 - collect and link gold carts
@@ -10,6 +9,9 @@ epics:
 - lose condition
 - intro
 
+interesting stuff:
+- you "discover" combos of carts, like Link discovering recipes in BOTW
+
 done:
 - move player with right/left arrows
 - speed variable
@@ -19,3 +21,4 @@ done:
 - add collision - if collide add cart to engine carts
 - collect carts
 - move collected carts
+- change engine speed with fuel carts

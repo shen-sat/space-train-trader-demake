@@ -17,7 +17,7 @@ function _init()
     speed = 1,
     compass = {0,1,2,3},
     direction = 0,
-    speed = 1,
+    speed = 4,
     fuel = 5000,
     carts = {},
     pos_history = {},
@@ -28,6 +28,13 @@ function _init()
       self:turn()
       self:move()
       self:update_carts_position()
+    end,
+    weight = function(self)
+     local mass = 0
+     for cart in all(self.carts) do
+       mass += cart.weight
+     end
+     return mass
     end,
     update_pos_history = function(self)
      local pos = { x = self.x, y = self.y } 
@@ -61,12 +68,14 @@ function _init()
     end,
     move = function(self)
       if self.fuel <= 0 then return end
+      
+      local speed = self.speed - flr(self:weight()/2)
 
       local movements = {
-        [0] = function() self.y -= self.speed end,
-        [1] = function() self.x += self.speed end,
-        [2] = function() self.y += self.speed end,
-        [3] = function() self.x -= self.speed end  
+        [0] = function() self.y -= speed end,
+        [1] = function() self.x += speed end,
+        [2] = function() self.y += speed end,
+        [3] = function() self.x -= speed end  
       }
       movements[self.direction]()
     end,
@@ -84,6 +93,8 @@ function _init()
 
   carts = {
     make_cart(player.x + 20, player.y - 20),
+    make_cart(player.x + 10, player.y - 10),
+    make_cart(player.x + 40, player.y - 20),
     make_cart(player.x + 30, player.y - 30)
   }
 end
@@ -102,7 +113,7 @@ function _draw()
     spr(cart.sprite,cart.x,cart.y)
   end
   
-  print(#player.pos_history, player.x, player.y + 10, 7)
+  print(flr((#player.carts)/2), player.x, player.y + 10, 7)
   spr(player.sprite, player.x, player.y)
   rect(galaxy.x - 63,galaxy.y - 63,127 - 63,127 - 63,7) --border
   pset(galaxy.x,galaxy.y,8) --center of galaxy
@@ -119,6 +130,7 @@ function make_cart(x,y)
     y = y,
     width = 8,
     height = 8,
+    weight = 1,
     type = 'gold',
     is_collected  = false,
     center = function(self)
