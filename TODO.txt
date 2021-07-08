@@ -1,6 +1,6 @@
 - sell carts at planet
-	- import planet sprite
-	- instatiate planet
+	- import planet sprite -- DONE
+	- instatiate planet -- DONE
 	- add credits attribute to player
 	- add value attribute to cart
 	- use point in rect to determine if engine or any connected carts are in range

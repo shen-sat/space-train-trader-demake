@@ -99,6 +99,16 @@ function _init()
     make_cart(player.x + 40, player.y - 20),
     make_cart(player.x + 30, player.y - 30)
   }
+
+  planet = {
+    sprite = 2,
+    sprite_width = 4,
+    sprite_height = 4, 
+    x = 0,
+    y = 0,
+    width = 32,
+    height = 32 
+  }
 end
 
 function _update()
@@ -111,10 +121,10 @@ end
 
 function _draw()
   cls()
+  spr(planet.sprite,planet.x,planet.y,planet.sprite_width,planet.sprite_height)
   for cart in all(carts) do
     spr(cart.sprite,cart.x,cart.y)
   end
-  
   print(flr((#player.carts)/2), player.x, player.y + 10, 7)
   spr(player.sprite, player.x, player.y)
   rect(galaxy.x - 63,galaxy.y - 63,127 - 63,127 - 63,7) --border
