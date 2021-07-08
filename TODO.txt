@@ -1,12 +1,8 @@
-- sell carts at planet
-	- import planet sprite -- DONE
-	- instatiate planet -- DONE
-	- add credits attribute to player
-	- add value attribute to cart
-	- use point in rect to determine if engine or any connected carts are in range
-	- press x to sell carts
-		- add cart value to credits score
-		- remove cart from player.carts
+- cart management aspect is missing a bit, so only sell specific carts to specific planets
+	- add type attribute to planet
+	- instantiate different planets with different types (and colors)
+	- instantiate different carts with different types (and colors)
+	- only sell carts at planets of same type (*let's see how the other carts' movements reac hehe*)
 
 epics:
 - make carts move next to each other and engine, regardless of speed
@@ -30,3 +26,4 @@ done:
 - move collected carts
 - change engine speed with fuel carts
 - brake for engine
+- sell carts at planet

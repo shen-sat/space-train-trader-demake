@@ -22,6 +22,7 @@ function _init()
     carts = {},
     pos_history = {},
     pos_history_limit = 70,
+    credits = 0,
     update = function(self)
       self:update_pos_history()
       self:burn_fuel()
@@ -99,7 +100,7 @@ function _init()
     make_cart(player.x + 40, player.y - 20),
     make_cart(player.x + 30, player.y - 30)
   }
-
+  
   planet = {
     sprite = 2,
     sprite_width = 4,
@@ -107,8 +108,21 @@ function _init()
     x = 0,
     y = 0,
     width = 32,
-    height = 32 
+    height = 32,
+    update = function(self)
+      if self:is_buying() and btnp(5) then
+        for cart in all(player.carts) do
+          player.credits += cart.value
+          del(player.carts,cart)
+        end
+      end
+    end,
+    is_buying = function(self)
+      if is_point_in_rect(player,self) then return true end 
+      return false
+    end
   }
+
 end
 
 function _update()
@@ -116,6 +130,7 @@ function _update()
   for cart in all(carts) do
     cart:check_player_collision(player)
   end
+  planet:update()
   camera(player.x - 59,player.y - 59)
 end
 
@@ -125,13 +140,18 @@ function _draw()
   for cart in all(carts) do
     spr(cart.sprite,cart.x,cart.y)
   end
-  print(flr((#player.carts)/2), player.x, player.y + 10, 7)
+  for cart in all(player.carts) do
+    spr(cart.sprite,cart.x,cart.y)
+  end
+  print('p_carts: '..#player.carts, player.x, player.y + 10, 7)
+  print('carts: '..#carts, player.x, player.y + 20  , 7)
   spr(player.sprite, player.x, player.y)
+  print('credits: '..player.credits, player.x - 59 + 5, player.y - 59 + 5, 7)
   rect(galaxy.x - 63,galaxy.y - 63,127 - 63,127 - 63,7) --border
   pset(galaxy.x,galaxy.y,8) --center of galaxy
 end
 
-function check_point_in_rect(point,rect)
+function is_point_in_rect(point,rect)
   return point.x >= rect.x and point.x <= rect.x + rect.width and point.y >= rect.y and point.y <= rect.y + rect.height
 end
 
@@ -144,6 +164,7 @@ function make_cart(x,y)
     height = 8,
     weight = 1,
     type = 'gold',
+    value = 50,
     is_collected  = false,
     center = function(self)
       local center_points = {
@@ -156,9 +177,10 @@ function make_cart(x,y)
     end,
     check_player_collision = function(self,player)
       for point in all(self:center()) do
-        if check_point_in_rect(point,player) and not self.is_collected then
+        if is_point_in_rect(point,player) and not self.is_collected then
           self.is_collected = true
           add(player.carts,self)
+          del(carts,self)
         end
       end  
     end
