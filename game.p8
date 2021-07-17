@@ -100,29 +100,12 @@ function _init()
     make_cart(player.x + 40, player.y - 20),
     make_cart(player.x + 30, player.y - 30)
   }
-  
-  planet = {
-    sprite = 2,
-    sprite_width = 4,
-    sprite_height = 4, 
-    x = 0,
-    y = 0,
-    width = 32,
-    height = 32,
-    update = function(self)
-      if self:is_buying() and btnp(5) then
-        for cart in all(player.carts) do
-          player.credits += cart.value
-          del(player.carts,cart)
-        end
-      end
-    end,
-    is_buying = function(self)
-      if is_point_in_rect(player,self) then return true end 
-      return false
-    end
-  }
 
+  ore_types = { gold = 'gold', ruby = 'ruby'}
+  planets = {
+   make_planet(0,0,ore_types.gold)
+  }
+  
 end
 
 function _update()
@@ -130,13 +113,17 @@ function _update()
   for cart in all(carts) do
     cart:check_player_collision(player)
   end
-  planet:update()
+  for planet in all(planets) do
+    planet:update()
+  end
   camera(player.x - 59,player.y - 59)
 end
 
 function _draw()
   cls()
-  spr(planet.sprite,planet.x,planet.y,planet.sprite_width,planet.sprite_height)
+  for planet in all(planets) do
+    spr(planet.sprite,planet.x,planet.y,planet.sprite_width,planet.sprite_height)
+  end
   for cart in all(carts) do
     spr(cart.sprite,cart.x,cart.y)
   end
@@ -153,6 +140,32 @@ end
 
 function is_point_in_rect(point,rect)
   return point.x >= rect.x and point.x <= rect.x + rect.width and point.y >= rect.y and point.y <= rect.y + rect.height
+end
+
+function make_planet(x,y,type)
+ local planet = {
+   sprite = 2,
+   sprite_width = 4,
+   sprite_height = 4, 
+   x = x,
+   y = y,
+   width = 32,
+   height = 32,
+   type = type,
+   update = function(self)
+     if self:is_buying() and btnp(5) then
+       for cart in all(player.carts) do
+         player.credits += cart.value
+         del(player.carts,cart)
+       end
+     end
+   end,
+   is_buying = function(self)
+     if is_point_in_rect(player,self) then return true end 
+     return false
+   end
+ }
+ return planet
 end
 
 function make_cart(x,y)

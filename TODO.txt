@@ -1,8 +1,22 @@
 - cart management aspect is missing a bit, so only sell specific carts to specific planets
-	- add type attribute to planet
 	- instantiate different planets with different types (and colors)
+		- make a make_planet method -- DONE
+		- give planets a type attr -- DONE
+		- make a planet_types table ('gold', 'ruby') -- DONE
+		- make a new planet
+			- add attr color as an arg
+			- make its color change dependent on its own type
 	- instantiate different carts with different types (and colors)
-	- only sell carts at planets of same type (*let's see how the other carts' movements reac hehe*)
+	- only sell carts at planets of same type (*let's see how the other carts' movements react hehe*)
+
+Re-emphasising MVP:
+- finite fuel
+- two different planets
+ - compass for planets
+- two different cart types
+	- one cart sells for more than the other, but fewer of them
+	- more expensive cart provides bigger boost
+- get to 1000 credits
 
 epics:
 - make carts move next to each other and engine, regardless of speed
