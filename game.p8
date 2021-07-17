@@ -94,16 +94,26 @@ function _init()
     end
   }
 
-  carts = {
-    make_cart(player.x + 20, player.y - 20),
-    make_cart(player.x + 10, player.y - 10),
-    make_cart(player.x + 40, player.y - 20),
-    make_cart(player.x + 30, player.y - 30)
+  ore_types = { 
+   crystal = {
+    color = 12
+   },
+   ruby = {
+    color = 8
+   }
   }
 
-  ore_types = { gold = 'gold', ruby = 'ruby'}
+  carts = {
+    make_cart(player.x + 20, player.y - 20, ore_types.ruby),
+    make_cart(player.x + 10, player.y - 10, ore_types.ruby),
+    make_cart(player.x + 40, player.y - 20, ore_types.crystal),
+    make_cart(player.x + 30, player.y - 30, ore_types.crystal)
+  }
+
+  
   planets = {
-   make_planet(0,0,ore_types.gold)
+   make_planet(-40,-40,ore_types.crystal),
+   make_planet(40,40,ore_types.ruby)
   }
   
 end
@@ -122,13 +132,21 @@ end
 function _draw()
   cls()
   for planet in all(planets) do
+    local original_color = 12
+    pal(original_color,planet.type.color)
     spr(planet.sprite,planet.x,planet.y,planet.sprite_width,planet.sprite_height)
   end
   for cart in all(carts) do
+    local original_color = 10
+    pal(original_color,cart.type.color)
     spr(cart.sprite,cart.x,cart.y)
+    pal()
   end
   for cart in all(player.carts) do
+    local original_color = 10
+    pal(original_color,cart.type.color)
     spr(cart.sprite,cart.x,cart.y)
+    pal()
   end
   print('p_carts: '..#player.carts, player.x, player.y + 10, 7)
   print('carts: '..#carts, player.x, player.y + 20  , 7)
@@ -152,11 +170,14 @@ function make_planet(x,y,type)
    width = 32,
    height = 32,
    type = type,
+   color = type.color,
    update = function(self)
      if self:is_buying() and btnp(5) then
        for cart in all(player.carts) do
-         player.credits += cart.value
-         del(player.carts,cart)
+         if cart.type == self.type then
+           player.credits += cart.value
+           del(player.carts,cart)
+         end
        end
      end
    end,
@@ -168,7 +189,7 @@ function make_planet(x,y,type)
  return planet
 end
 
-function make_cart(x,y)
+function make_cart(x,y,type)
   local cart = {
     sprite = 1,
     x = x,
@@ -176,7 +197,8 @@ function make_cart(x,y)
     width = 8,
     height = 8,
     weight = 1,
-    type = 'gold',
+    type = type,
+    color = type.color,
     value = 50,
     is_collected  = false,
     center = function(self)

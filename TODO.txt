@@ -1,13 +1,4 @@
-- cart management aspect is missing a bit, so only sell specific carts to specific planets
-	- instantiate different planets with different types (and colors)
-		- make a make_planet method -- DONE
-		- give planets a type attr -- DONE
-		- make a planet_types table ('gold', 'ruby') -- DONE
-		- make a new planet
-			- add attr color as an arg
-			- make its color change dependent on its own type
-	- instantiate different carts with different types (and colors)
-	- only sell carts at planets of same type (*let's see how the other carts' movements react hehe*)
+Refactor coloring carts
 
 Re-emphasising MVP:
 - finite fuel
@@ -41,3 +32,4 @@ done:
 - change engine speed with fuel carts
 - brake for engine
 - sell carts at planet
+- cart management aspect is missing a bit, so only sell specific carts to specific planets
